@@ -1,0 +1,88 @@
+{% extends "header.html"%}
+{% block content%}
+    Home Page
+{% endblock%}
+{% block nav%}
+    <li><a href="/">LOGIN</a></li>
+	<li class="active"><a href="/new">NEW LOGIN</a></li>
+	<li><a href="/about">About</a></li>
+{% endblock%}
+{%block body%}
+
+    {% if a==1 :%}
+        <div id="pop" style="text-align: center; background-color:darkgray;">
+            <label style="color: red;">Password and Confirm Password didn't match</label>
+            <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+        </div>
+    {%endif%}
+    {% if a==2 :%}
+    <div id="pop" style="text-align: center; background-color:darkgray;">
+        <label style="color: red;">Entered email Id already exist</label>
+        <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+    </div>
+    {%endif%}
+    {% if a==3 :%}
+        <div id="pop" style="text-align: center; background-color:darkgray;">
+            <label style="color: red;">UserId already exist choose something else</label>
+            <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+        </div>
+    {%endif%}
+    {% if a==4 :%}
+        <div id="pop" style="text-align: center; background-color:darkgray;">
+            <label style="color: red;">Some error has occured</label>
+            <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+        </div>
+    {%endif%}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class=flashes style="color: green; ">
+        {% for message in messages %}
+    <div id="pop" style="background-color:darkgray; text-align: center;">
+        <span>{{ message }}</span>
+        <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+    </div>
+        {% endfor %}
+    </div>
+    {%endif%}
+{%endwith%}
+    <div class="container" style="padding-right: 200px;padding-left: 200px; float: center;">
+        <h1 style="text-align: center;">REGISTRATION FORM</h1>
+
+
+    <form method="post" action="{{url_for('register')}}">
+        {{form.hidden_tag()}}
+        <div class="form-group">
+        {{form.userid.label()}}
+        {{ form.userid(placeholder="Enter User Id", class="form-control", id="userid")}}
+        </div>
+        <div class="form-group">
+            {{form.emailid.label()}}
+            {{ form.emailid(type="email", placeholder="Enter Email Id", class="form-control", id="emailid")}}
+        </div>
+        <div class="form-group">
+            {{form.username.label()}}
+            {{ form.username(placeholder="Enter User Name", class="form-control", id="username")}}
+        </div>
+        <div class="form-group">
+            {{form.image.label()}}
+            <span class="wrapper" style="float: left; width: 80%;"></span>
+            {{ form.image()}}
+            </span>
+        </div>
+        <div class="form-group">
+            {{form.password.label()}}
+            <span class="wrapper" style="float: left; width: 80%;"></span>
+            {{ form.password(placeholder="Enter Password", class="form-control", id="password")}}
+            </span>
+            <input type="checkbox" onclick="show()" style="float: right;">
+        </div>
+        <div class="form-group">
+            {{form.confirm.label()}}
+            {{ form.confirm(placeholder="Confirm Password", class="form-control", id="confirm")}}
+        </div>
+        {{ form.submit( class="btn btn-primary") }}
+    </form>
+</div>
+
+{%endblock%}

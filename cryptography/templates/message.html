@@ -1,0 +1,28 @@
+{% extends "header.html"%}
+{% block content%}
+    Message
+{% endblock %}
+{% block nav%}
+    <li><a href="/user/{{ids}}">{{name}}</a></li>
+    <li class="active"><a href="/message">{{friend}}</a></li>
+	<li><a href="/friend_request">Friend Request</a></li>
+	<li><a href="/logout">Log Out</a></li>
+{% endblock %}
+{% block body %}
+    {% for i in range (items.__len__()) %}
+        {% if items[i].id=='2' %}
+            <div class="container"  style="color: blue; text-align: left;">{{items[i].message}}</div>
+        {% else %}
+            <div class="container" style="color: green; text-align: right;">{{items[i].message}}</div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="container" style="color: green; text-align: right;">
+        <form method="POST" action="{{url_for('reply')}}">
+            {{form.hidden_tag()}}
+            {{ form.reply1(placeholder="Write Message", id="reply")}}
+            {{ form.submit() }}
+        </form>
+    </div>
+
+{% endblock %}

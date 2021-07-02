@@ -1,0 +1,52 @@
+{% extends "header.html"%}
+{% block content%}
+    Home Page
+{% endblock%}
+{% block nav%}
+    <li class="active"><a href="/">LOGIN</a></li>
+	<li><a href="/new">NEW LOGIN</a></li>
+	<li><a href="/about">About</a></li>
+{% endblock%}
+{%block body%}
+    {% if a==1 :%}
+        <p id="pop" style="color: red;">Complete the Form</p>
+    {%endif%}
+    {% if a==2 :%}
+        <div id="pop" style="text-align: center; background-color:darkgray;">
+            <label style="color: red;">Incorrect User Id or Password</label>
+            <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+        </div>
+    {%endif%}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class=flashes style="color: green; ">
+        {% for message in messages %}
+    <div id="pop" style="background-color:darkgray; text-align: center;">
+        <span>{{ message }}</span>
+        <button onclick="myfun()" style="float: right; margin-right: 10px;">x</button>
+    </div>
+        {% endfor %}
+    </div>
+    {%endif%}
+    {%endwith%}
+    <div class="container" style="padding-right: 200px;padding-left: 200px; float: center;">
+        <h1 style="text-align: center;">LOGIN FORM</h1>
+
+        <form method="post" action="{{url_for('login_form')}}" >
+            {{form.hidden_tag()}}
+        <div class="form-group">
+        {{form.username.label()}}
+        {{ form.username(placeholder="Enter User Id", class="form-control", id="username")}}
+        </div>
+        <div class="form-group">
+            {{form.password.label()}}
+            <span class="wrapper" style="float: left; width: 80%;"></span>
+            {{ form.password(placeholder="Enter Password", class="form-control", id="password")}}
+            </span>
+            <input type="checkbox" onclick="show()" style="float: right;">
+        </div>
+        {{ form.submit( class="btn btn-primary") }}
+    </form>
+</div>
+
+{%endblock%}
